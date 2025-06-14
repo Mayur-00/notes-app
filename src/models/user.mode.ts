@@ -7,17 +7,31 @@ const userSchema: Schema<IUser> = new Schema(
   {
     username: {
       type: String,
-      required: true,
+      required: [true, "Username is required"],
       unique: true,
+      trim: true,
+      minLength: [3, "Username must be at least 3 characters"],
+      maxLength: [30, "Username cannot exceed 30 characters"],
+      match: [
+        /^[a-zA-Z0-9_]+$/,
+        "Username can only contain letters, numbers, and underscores",
+      ],
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is required"],
       unique: true,
+      trim: true,
+      lowercase: true,
+      match: [
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        "Please provide a valid email address",
+      ],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password is required"],
+      minLength: [8, "Password must be at least 8 characters"],
     },
     notes: [
       {

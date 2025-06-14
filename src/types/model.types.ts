@@ -14,8 +14,8 @@ export interface INote extends Document{
     author:mongoose.Schema.Types.ObjectId;
     title:string;
     body:string;
-    createdAt:Date;
-    updatedAt:Date;
+    createdAt?:Date;
+    updatedAt?:Date;
     
 
 };

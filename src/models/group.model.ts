@@ -18,7 +18,7 @@ const groupSchema: Schema<IGroup> = new Schema(
         },
         notes:[
             {
-                types:Schema.Types.ObjectId
+                type:Schema.Types.ObjectId
             }
         ]
 
