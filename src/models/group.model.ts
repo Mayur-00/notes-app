@@ -1,27 +1,25 @@
-import { IGroup, INote } from "@/types/model.types";
+import { IFolder } from "@/types/model.types";
 import mongoose, { Schema } from "mongoose";
 
 
-const groupSchema: Schema<IGroup> = new Schema(
+const folderSchema: Schema<IFolder> = new Schema(
     {
         author:{
             type:Schema.Types.ObjectId,
             required:true
         },
-        groupName:{
+        FolderName:{
             type:String,
             required:true,
 
         },
-        groupAccentColor:{
+        accentColor:{
             type:String
         },
-        notes:[
-            {
-                type:Schema.Types.ObjectId
-            }
-        ]
-
+        parent:{
+            type:Schema.Types.ObjectId,
+            ref:"Folder"
+        }
     },
 
 {
@@ -31,6 +29,6 @@ const groupSchema: Schema<IGroup> = new Schema(
 
 
 
-const GroupModel =
-  mongoose.models.Group<IGroup> || mongoose.model<IGroup>("Group", groupSchema);
-export default GroupModel;
+const FolderModel =
+  mongoose.models.Folder<IFolder> || mongoose.model<IFolder>("Folder", folderSchema);
+export default FolderModel;

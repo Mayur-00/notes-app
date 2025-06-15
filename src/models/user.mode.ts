@@ -33,18 +33,24 @@ const userSchema: Schema<IUser> = new Schema(
       required: [true, "Password is required"],
       minLength: [8, "Password must be at least 8 characters"],
     },
-    notes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Note",
-      },
-    ],
-    groups: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Group",
-      },
-    ],
+    isVerified:{
+      type:Boolean,
+      default:false
+
+    },
+    verificationCode:{
+      type:String,
+    },
+    verifyCodeExpiry:{
+      type:Date,
+    },
+    forgotPasswordCode:{
+      type:String,
+
+    },
+    forgotPasswordCodeExpiry:{
+      type:Date,
+    }
   },
   {
     timestamps: true,

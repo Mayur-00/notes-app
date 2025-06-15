@@ -4,8 +4,11 @@ export interface IUser extends Document {
     username:string;
     email:string;
     password:string;
-    notes:mongoose.Schema.Types.ObjectId[];
-    groups:mongoose.Schema.Types.ObjectId[];
+    isVerified:boolean;
+    verificationCode:string;
+    verifyCodeExpiry:Date;
+    forgotPasswordCode:string;
+    forgotPasswordCodeExpiry:Date;
     createdAt:Date;
     updatedAt:Date;
 };
@@ -14,17 +17,19 @@ export interface INote extends Document{
     author:mongoose.Schema.Types.ObjectId;
     title:string;
     body:string;
+    folderId:mongoose.Schema.Types.ObjectId;
+    status:string;
     createdAt?:Date;
     updatedAt?:Date;
     
 
 };
 
-export interface IGroup extends Document {
+export interface IFolder extends Document {
     author:mongoose.Schema.Types.ObjectId;
-    groupName:string;
-    groupAccentColor:string;
-    notes:mongoose.Schema.Types.ObjectId[];
+    FolderName:string;
+    accentColor:string;
+    parent:mongoose.Schema.Types.ObjectId
     createdAt:Date;
     updatedAt:Date;
 };
