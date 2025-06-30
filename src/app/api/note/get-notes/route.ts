@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { NextResponse } from "next/server";
 import NoteModel from "@/models/note.model";
-import { Types } from "mongoose";
+import mongoose from "mongoose";
 
 export async function GET() {
   await connectToDb();
@@ -17,8 +17,9 @@ export async function GET() {
       );
     }
 
-    // Convert session.user.id to ObjectId if needed
-    const userId =  session.user._id;
+   
+     //  ObjectId conversion
+     const userId = new mongoose.Types.ObjectId(session?.user?._id);
     
     if (!userId) {
       return NextResponse.json(
@@ -30,13 +31,25 @@ export async function GET() {
     const notes = await NoteModel.aggregate([
       {
         $match: { 
-          author: new Types.ObjectId(userId) // Ensure proper ObjectId conversion
+          author: userId
         }
       },
       {
         $sort: { createdAt: -1 }
       }
     ]);
+
+    if(!notes){
+      return NextResponse.json(
+        {
+          success:false,
+          error:"an error occured while getting notes"
+        },
+        {
+          status:500
+        }
+      )
+    }
 
     return NextResponse.json(
       {
@@ -59,5 +72,5 @@ export async function GET() {
       },
       { status: 500 }
     );
-  }
-}
+  };
+};

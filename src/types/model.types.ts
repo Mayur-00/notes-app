@@ -15,10 +15,13 @@ export interface IUser extends Document {
 
 export interface INote extends Document{
     author:mongoose.Schema.Types.ObjectId;
+    icon:string;
     title:string;
     body:string;
     folderId:mongoose.Schema.Types.ObjectId;
     status:string;
+    isArchieved:boolean;
+    isPinned:boolean;
     createdAt?:Date;
     updatedAt?:Date;
     

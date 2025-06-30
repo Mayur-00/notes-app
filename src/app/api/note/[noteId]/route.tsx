@@ -3,6 +3,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import { NextRequest, NextResponse } from "next/server";
 import NoteModel from "@/models/note.model";
+import { URLSearchParams } from "url";
+import mongoose from "mongoose";
+
 
 export async function GET(
   req: NextRequest,
@@ -21,6 +24,8 @@ export async function GET(
 
     // Await params as required in newer Next.js versions
     const noteId = (await params).noteId;
+    // const searchparams =  new URLSearchParams(req.url);
+    // searchparams.get('token')
 
     if (!noteId) {
       console.log("noteId not found");
@@ -35,7 +40,12 @@ export async function GET(
       );
     }
 
-    const note = await NoteModel.findById(noteId);
+     const verifiedNoteId = new mongoose.Types.ObjectId(noteId);
+    
+        const userid = new mongoose.Types.ObjectId(session?.user?._id);
+    
+
+    const note = await NoteModel.findOne({_id:verifiedNoteId, author:userid});
 
     if (!note) {
       return NextResponse.json(
@@ -50,7 +60,11 @@ export async function GET(
     }
 
     // Optional: Check if the note belongs to the current user
-    // if (note.userId !== session.user.id) {
+
+    // if (note.author !== userid ){
+    //   console.log(note.author);
+    //   console.log(USERID);
+      
     //   return NextResponse.json(
     //     {
     //       success: false,
@@ -60,7 +74,7 @@ export async function GET(
     //       status: 403
     //     }
     //   );
-    // }
+    // };
 
     return NextResponse.json(
       {

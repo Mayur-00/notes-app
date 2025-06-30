@@ -7,7 +7,7 @@ import { getToken } from "next-auth/jwt";
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const path = request.nextUrl.pathname;
-  const isPublic = path==="/" || path==="/sign-in" || path==="/sign-up" || path==="/verify" || path === "/";
+  const isPublic = path==="/" || path==="/sign-in" || path==="/sign-up" || path==="/verify" ||  path.startsWith("/verify/")  ;
 
    // Skip middleware for static assets, API routes, and Next.js internals
   if (
@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
 
   if (token && isPublic) {
 
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
     
     if(!token && !isPublic){

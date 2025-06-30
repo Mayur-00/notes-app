@@ -3,10 +3,12 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import NoteModel from "@/models/note.model";
+import mongoose from "mongoose";
+
 
 export async function PUT(req: NextRequest,  { params }: { params: { id: string } }) {
   await connectToDb();
-const noteId = params.id;
+
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user || !session.user.email) {
@@ -16,25 +18,32 @@ const noteId = params.id;
       );
     }
 
+    // const url = new URLSearchParams(req.url);
+    // const noteId = url.get("noteid")
+
     const {updatedTitle, updatedBody, noteId} = await req.json();
     // const noteId = params.id;
 
+    console.log(updatedBody, updatedTitle, noteId)
+
     if(!updatedTitle || !updatedBody ){
+
          return NextResponse.json(
         { success: false, error: "provide title and body" },
-        { status: 404 }
+        { status: 403 }
       );
 
     }; 
     if(!noteId){
          return NextResponse.json(
         { success: false, error: "note id not found" },
-        { status: 404 }
+        { status: 403 }
       );
-
+      
     };
+    const validNoteId = new mongoose.Types.ObjectId(noteId);
     
-    const updatedNote = await NoteModel.findByIdAndUpdate(noteId, { title: updatedTitle, body: updatedBody }, { new: true });
+    const updatedNote = await NoteModel.findByIdAndUpdate(validNoteId, { title: updatedTitle, body: updatedBody }, { new: true });
 
     if (!updatedNote) {
       return NextResponse.json(
@@ -56,5 +65,14 @@ const noteId = params.id;
 
   } catch (error) {
     console.error("Error updating note:", error);
+    return NextResponse.json(
+      {
+        success:false,
+        error:"internal server error",
+      },
+      {
+        status:500
+      }
+    )
   }
 }

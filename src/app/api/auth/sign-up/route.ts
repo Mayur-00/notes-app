@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
           }
         );
       } else {
-      
+      existingUserByEmail.username = username;
         existingUserByEmail.password = password;
         existingUserByEmail.verificationCode = verifyCode;
         existingUserByEmail.verifyCodeExpiry = verifyCodeExpiry;

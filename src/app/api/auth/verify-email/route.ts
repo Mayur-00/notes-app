@@ -7,6 +7,7 @@ export async function POST (req:NextRequest){
 
     try {
         const {username, token} = await req.json();
+        console.log(username, token)
 
         if(!username || !token){
             return NextResponse.json({

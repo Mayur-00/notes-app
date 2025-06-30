@@ -8,6 +8,12 @@ const noteSchema: Schema<INote> = new Schema(
         type:Schema.Types.ObjectId,
         required:true
     },
+     // TODO:Add Default Svg
+    icon:{
+      type:String,
+     
+      default:""
+    },
     title:{
         type: String,
         required:true
@@ -24,7 +30,17 @@ const noteSchema: Schema<INote> = new Schema(
     type: String, 
     enum: ['active', 'archived', 'deleted'], 
     default: 'active',
+    
+  },
+  isArchieved:{
+    type:Boolean,
+    required:true,
+    default:false,
     index: true 
+  },
+  isPinned:{
+    type:Boolean,
+    default:false
   },
     createdAt:{
         type:Date,
@@ -42,8 +58,9 @@ const noteSchema: Schema<INote> = new Schema(
 );
 
 noteSchema.index({ author: 1, createdAt: -1 });
-noteSchema.index({ author: 1, status: 1, updatedAt: -1 });
+noteSchema.index({ author: 1, isArchieved: 1, updatedAt: -1 });
 noteSchema.index({ author: 1, folderId: 1 });
+noteSchema.index({ author: 1, isPinned: 1 });
 noteSchema.index({ title: 'text', body: 'text' })
 
 const NoteModel =
