@@ -183,38 +183,33 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 ## 📊 Performance
 
-- **Lighthouse Score**: 95+ on all metrics
+- **Lighthouse Score**: 71+ on all metrics
 - **First Contentful Paint**: < 1.2s
-- **Time to Interactive**: < 2.8s
+- **Time to Interactive**: < 0.9s
 - **Bundle Size**: < 250KB (gzipped)
 
 ## 🔒 Security
 
 - All authentication handled by NextAuth.js
 - CSRF protection enabled
-- SQL injection prevention with Prisma
 - XSS protection with Content Security Policy
-- Rate limiting on API endpoints
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Author
 
-**Alex Smith**
-- GitHub: [@alexsmith](https://github.com/alexsmith)
-- LinkedIn: [Alex Smith](https://linkedin.com/in/alex-smith-dev)
-- Email: alex.smith.dev@gmail.com
-- Portfolio: [alexsmith.dev](https://alexsmith.dev)
+**Mayur Kendre**
+- GitHub: [@mayur-00](https://github.com/Mayur-00)
+- LinkedIn: [mayur kendre](https://www.linkedin.com/in/mayurkendre1/)
+- Email: kendremayur31@gmail.com
+<!-- - Portfolio: [alexsmith.dev](https://alexsmith.dev) -->
 
 ## 🙏 Acknowledgments
 
 - [Next.js](https://nextjs.org/) for the incredible framework
 - [Vercel](https://vercel.com/) for seamless deployment
 - [shadcn/ui](https://ui.shadcn.com/) for the beautiful component library
-- [Tiptap](https://tiptap.dev/) for the powerful editor framework
-- [Prisma](https://prisma.io/) for type-safe database interactions
+<!-- - [Tiptap](https://tiptap.dev/) for the powerful editor framework -->
+- [mongoose](https://mongoosejs.com/) for type-safe database interactions
 - The open-source community for inspiration and contributions
 
 ## 📈 Stats
