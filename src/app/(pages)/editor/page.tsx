@@ -7,6 +7,10 @@ import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
+const playSound = () => {
+  const audio = new Audio("/sound/mixkit-single-key-type-2533.wav");
+  audio.play();
+};
 const Page = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -41,12 +45,20 @@ const Page = () => {
     }
   };
 
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    setTimeout(() => {
+      playSound();
+    }, 200);
+
     if (e.ctrlKey && e.key === "s") {
       e.preventDefault();
       saveNote();
     }
+  };
+  const handleTitleKeyDown = () => {
+    setTimeout(() => {
+      playSound();
+    }, 200);
   };
 
   if (error) {
@@ -54,7 +66,6 @@ const Page = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-500 text-xl">{error}</div>
-
         </div>
       </div>
     );
@@ -70,6 +81,7 @@ const Page = () => {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            onKeyDown={handleTitleKeyDown}
             placeholder="Note title..."
             className="text-3xl text-black rounded w-full font-bold dark:text-neutral-200  border border-neutral-300 focus:ring-0 outline-none dark:border-neutral-600 shadow-none p-2 mb-6 bg-transparent focus-visible:ring-0"
           />

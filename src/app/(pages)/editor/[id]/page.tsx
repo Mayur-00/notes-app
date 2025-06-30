@@ -24,6 +24,10 @@ const Page = () => {
   const initialDataRef = useRef({ title: "", content: "" });
 
   const noteId = params.id as string;
+  const playSound = () => {
+  const audio = new Audio("/sound/mixkit-single-key-type-2533.wav");
+  audio.play();
+};
 
   // Fetch existing note
   const fetchNote = useCallback(async (id: string) => {
@@ -186,10 +190,18 @@ const Page = () => {
 
   // Handle keyboard shortcuts
   const handleKeyDown = (e: React.KeyboardEvent) => {
+     setTimeout(() => {
+      playSound();
+    }, 200);
     if (e.ctrlKey && e.key === 's') {
       e.preventDefault();
       saveNote();
     }
+  };
+    const handleTitleKeyDown = () => {
+    setTimeout(() => {
+      playSound();
+    }, 200);
   };
 
   // Initialize component
